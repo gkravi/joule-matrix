@@ -1,0 +1,204 @@
+extends base
+
+block content
+    main.main
+        link(rel='stylesheet' href='/css/form-style.css')
+        .enroll-form
+            h2.heading-secondary.ma-bt-lg Enroll new Test
+            // MultiStep Form
+            .row
+                .col-md-12.form__wrapper
+                    form#msform.form--enroll
+                        // progressbar
+                        ul#progressbar
+                            li.active Website Details
+                            li Environment Configuration
+                            li Enroll
+                        // fieldsets
+                        fieldset
+                            h2.fs-title Website Details
+                            h3.fs-subtitle Tell us something more about website
+                            .form__group--website__details
+                                .form__group.form__web--env
+                                    .form__group
+                                        label.form__label(for='tenant') What is the name of your site?
+                                        input#tenant.form__input(type='text' name='tenant' required placeholder='honeywell.com')
+                                    .form__group
+                                        label.form__label(for='language') Tenant Language
+                                        input#language.form__input(type='text', placeholder='en-us', required, name='language')
+                                    .row
+                                        .col-md-6                                        
+                                            .form__group                                        
+                                                label.form__label Which environment would you like to configure Visual Regression testing for?
+                                                
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#qa.form-check-input-custom(type='checkbox' name='qa' )
+                                                    label.col-sm-11.form-check-label.form__label(for='qa') QA                       
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#stage.form-check-input-custom(type='checkbox' name='stage' )
+                                                    label.col-sm-11.form-check-label.form__label(for='stage') STAGE                        
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#prod.form-check-input-custom(type='checkbox' name='prod' )
+                                                    label.col-sm-11.form-check-label.form__label(for='prod') PROD
+                                        .col-md-6
+                                            .form__group
+                                                label.form__label Which test you want for your website?
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#imagediff.form-check-input-custom(type='checkbox' name='imagediff')
+                                                    label.col-sm-11.form-check-label.form__label(for='imagediff') Image Diff
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#htmldiff.form-check-input-custom(type='checkbox' name='htmldiff' )
+                                                    label.col-sm-11.form-check-label.form__label(for='htmldiff') HTML Diff            
+                                                .form__group.form-group.row
+                                                    .col-sm-1
+                                                        .form-check
+                                                            input#speedtest.form-check-input-custom(type='checkbox' name='speedtest' )
+                                                    label.col-sm-11.form-check-label.form__label(for='speedtest') Speed Test     
+                                        
+                            input.next.action-button.btn.btn-info(type='button' name='next' value='Next')
+                        fieldset
+                            h2.fs-title Environment Configuration
+                            #formslider.carousel.slide.clearfix(data-ride='carousel')
+                                ol.carousel-indicators
+                                    li.active(data-target='#formslider' data-slide-to='0')
+                                    li(data-target='#formslider' data-slide-to='1')
+                                    li(data-target='#formslider' data-slide-to='2')
+                                    li(data-target='#formslider' data-slide-to='3')
+                                .carousel-inner                                   
+                                   
+                                    .carousel-item.active.form__group.form__web--env__qa.clearfix
+                                        h2.fs-title QA CONFIGURATION
+                                        .form__group.qa__config--urls.clearfix
+                                            h3.fs-subtitle Which pages would you like to be considered for Visual Regression testing for every QA deployment? Please mention the URLs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_url(type='text' name='url' id='qa_url_1' placeholder='https://qa.honeywell.com/en-us/news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_url(type='text' name='url' id='qa_url_2' placeholder='https://qa.honeywell.com/en-us/press')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_url(type='text' name='url' id='qa_url_3' placeholder='https://qa.honeywell.com/en-us/in-the-news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__page-qa(type='button' name='add_page' value='ADD ANOTHER PAGE') 
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-url.form-check-input-custom.col-sm-1(type='checkbox' name='copy_urls_all' value='copy_urls')
+                                                label.col-sm-11.form__label(for='copy_urls_all') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+                                        .form__group.qa__config--emails.clearfix
+                                            h3.fs-subtitle Who would like to be notified on completion of Visual Regression testing? Please enter the Email IDs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_email(type='text' name='email' id='email_1' placeholder='jon.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_email(type='text' name='email' id='email_2' placeholder='jane.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.qa_email(type='text' name='email' id='email_3' placeholder='chandlier.bing@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__email-qa(type='button' name='add_email' value='ADD ANOTHER EMAIL')
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-email.form-check-input-custom.col-sm-1(type='checkbox' name='copy_emails_all' value='copy_emails')
+                                                label.col-sm-11.form__label(for='copy_emails_all') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+
+                                    .carousel-item.form__group.form__web--env__stage.clearfix
+                                        h2.fs-title STAGE CONFIGURATION
+                                        .form__group.stage__config--urls.clearfix
+                                            h3.fs-subtitle Which pages would you like to be considered for Visual Regression testing for every STAGE deployment? Please mention the URLs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_url(type='text' name='url' id='stage_url_1' placeholder='https://stage.honeywell.com/en-us/news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_url(type='text' name='url' id='stage_url_2' placeholder='https://stage.honeywell.com/en-us/press')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_url(type='text' name='url' id='stage_url_3' placeholder='https://stage.honeywell.com/en-us/in-the-news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__page-stage(type='button' name='add_page' value='ADD ANOTHER PAGE') 
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-url.form-check-input-custom.col-sm-1(type='checkbox' name='copy_urls_all' value='copy_urls')
+                                                label.col-sm-11.form__label(for='copy_urls_all') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+                                        .form__group.stage__config--emails.clearfix
+                                            h3.fs-subtitle Who would like to be notified on completion of Visual Regression testing? Please enter the Email IDs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_email(type='text' name='email' id='email_1' placeholder='jon.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_email(type='text' name='email' id='email_2' placeholder='jane.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.stage_email(type='text' name='email' id='email_3' placeholder='chandlier.bing@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__email-stage(type='button' name='add_email' value='ADD ANOTHER EMAIL')
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-url.form-check-input-custom.col-sm-1(type='checkbox' name='copy_emails_all' value='copy_emails')
+                                                label.col-sm-11.form__label(for='copy-url') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+                                    
+                                    .carousel-item.form__group.form__web--env__prod.clearfix
+                                        h2.fs-title PROD CONFIGURATION
+                                        .form__group.prod__config--urls.clearfix
+                                            h3.fs-subtitle Which pages would you like to be considered for Visual Regression testing for every PROD deployment? Please mention the URLs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_url(type='text' name='url' id='prod_url_1' placeholder='https://www.honeywell.com/en-us/news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_url(type='text' name='url' id='prod_url_2' placeholder='https://www.honeywell.com/en-us/press')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_url(type='text' name='url' id='prod_url_3' placeholder='https://www.honeywell.com/en-us/in-the-news')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__page-prod(type='button' name='add_page' value='ADD ANOTHER PAGE') 
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-url.form-check-input-custom.col-sm-1(type='checkbox' name='copy_urls_all' value='copy_urls')
+                                                label.col-sm-11.form__label(for='copy_urls_all') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+                                        .form__group.prod__config--emails.clearfix
+                                            h3.fs-subtitle Who would like to be notified on completion of Visual Regression testing? Please enter the Email IDs below
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_email(type='text' name='email' id='email_1' placeholder='jon.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_email(type='text' name='email' id='email_2' placeholder='jane.doe@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row
+                                                input.col-sm-10.form__input.prod_email(type='text' name='email' id='email_3' placeholder='chandlier.bing@honeywell.com')
+                                                input.col-sm-1.btn.btn-danger.btn-remove(type='button' name='remove' value='REMOVE') 
+                                            .form__group.form-group.row.float-right
+                                                input.btn.btn-success.action--add__email-prod(type='button' name='add_email' value='ADD ANOTHER EMAIL')
+                                            .form__group.form-group.row(style="clear: both;")
+                                                input#copy-email.form-check-input-custom.col-sm-1(type='checkbox' name='copy_emails_all' value='copy_emails')
+                                                label.col-sm-11.form__label(for='copy_emails_all') Copy the same configuration for all environments
+                                            //- input.float-right.next--group--button.btn.btn-info(type='button' name='next' value='Next')
+                                .form__group.float-right
+                                    a.next--group--button.btn.btn-info.carousel-control-prev(href='#formslider' role='button' data-slide='prev')
+                                        span.carousel-control-prev-icon(aria-hidden='true')
+                                        span.sr-only Previous
+                                    a.next--group--button.btn.btn-info.carousel-control-next(href='#formslider' role='button' data-slide='next')
+                                        span.carousel-control-next-icon(aria-hidden='true')
+                                        span.sr-only Next
+                            
+                            input.btn.previous.action-button-previous(type='button' name='previous' value='Previous')
+                            input.btn.next.action-button(type='button' name='next' value='Next')
+                        fieldset
+                            h2.fs-title Create your enrollment
+                            .form__group.form--enroll__submit
+                                input.btn.btn--green.enroll__submit--btn(type='submit' name='submit' value='Enroll Now')
+                                                            
+                            //- input.btn.previous.action-button-previous(type='button' name='previous' value='Previous')

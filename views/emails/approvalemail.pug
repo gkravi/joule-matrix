@@ -1,0 +1,18 @@
+extends baseEmail
+
+block content
+
+    p Hi #{firstName},
+        p Welcome to Joule Visual Regression Testing Platform, we're glad to have you 🎉🙏
+        p The test that you configured has completed successfully, Please approve or reject this test in order to enable CI proceed with corresponding guidance from you.
+        table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+            tbody
+                tr
+                    td(align='left')
+                        table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                            tbody
+                                tr
+                                    td
+                                        a(href=`${url}`, target='_blank') Approve/Reject Test
+        p If you need enroll your test, please go to the Joule VT Dashboard!
+        p - Ravi Gupta, Developer

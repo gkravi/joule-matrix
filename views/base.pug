@@ -1,0 +1,37 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel="stylesheet", href="/bootstrap/dist/css/bootstrap.min.css")  
+        link(rel='stylesheet' href='/bootstrap/dist/css/bootstrap-grid.min.css')      
+        link(rel='stylesheet' href='/css/style.css')
+        link(rel='shortcut icon' type='image/png' href='/img/favicon.ico')
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+        title JouleVT | #{title}
+
+        
+    body
+        // HEADER
+        include _header
+        
+        // CONTENT
+        block content
+            h1 This is a placeholde heading
+        
+        // FOOTER
+        include _footer
+            script(src='/jquery/dist/jquery.min.js')
+            script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.min.js' integrity='sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=' crossorigin='anonymous')
+            script(src='/bootstrap/dist/js/bootstrap.min.js')
+            script(src="https://js.pusher.com/7.0/pusher.min.js")
+            script(src="https://unpkg.com/axios/dist/axios.min.js")
+            script(src='/js/pusher-init.js')
+            script(src='/js/bundle.js')
+            script(src='/js/multi-step.js')
+
+        //- script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js')
+        //- script(src='/js/loginForm.js')
+
+
+

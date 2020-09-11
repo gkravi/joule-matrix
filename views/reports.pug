@@ -1,0 +1,38 @@
+extends base
+
+block content
+    main.main
+        .card-container 
+            each report in reports           
+                .card
+                    .card__header
+                       h3.heading-tertirary
+                            span= `${report.status} Report`
+
+                    .card__details
+                        h4.card__sub-heading Test Report
+                        p.card__text
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-calendar')
+                            - const reportDate = report.modifieddAt ? report.modifieddAt : '';
+                            span= reportDate.toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'})
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-clock')
+                            span= `${report.duration} ms`
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-user')
+                            - const authorName = report.author ? report.author.name : 'Admin';
+                            span= authorName
+
+                    .card__footer                        
+                        p
+                            - const status = report.status === 'Completed' ? 'Completed' : 'Pending';
+                            span.card__footer-value= status
+                            |  
+                        p.card__ratings
+                            span.card__footer-value= `Compatibility ${report.compatibility} %`
+                        a.btn.btn--green.btn--small(href=`/reports/${report.slug}`) Details
+        

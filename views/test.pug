@@ -1,0 +1,149 @@
+extends base
+
+include _reportCard
+
+include _ltReportCard
+
+mixin overviewBox(label, text, icon)
+    .overview-box__detail
+        svg.overview-box__icon
+            use(xlink:href=`/img/icons.svg#icon-${icon}`)
+        span.overview-box__label= label
+        span.overview-box__text= text
+
+block content
+    section.section-header
+        .header__hero
+            .header__hero-overlay &nbsp;
+
+        .heading-box
+            h1.heading-primary
+                span= `${test.tenant} - ${test.language}` 
+            .heading-box__group
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-clock')
+                    span.heading-box__text= `Avg. Durations ${test.averageDuration} ms` 
+                .heading-box__detail
+                    svg.heading-box__icon
+                        use(xlink:href='/img/icons.svg#icon-map-pin')
+                    span.heading-box__text= test.type
+
+    section.section-description
+        .overview-box
+            div
+                .overview-box__group
+                    h2.heading-secondary.ma-bt-lg Quick facts
+                    - const testDates = test.testDates[test.testDates.length - 1] ? test.testDates[test.testDates.length - 1] : '';
+                    +overviewBox('Last Test date',testDates.toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'}),'calendar')
+                    +overviewBox('Device',test.device, 'trending-up')
+                    .overview-box__detail
+                        svg.overview-box__icon
+                            use(xlink:href='/img/icons.svg#icon-trending-up')
+                        span.overview-box__label Test Page URL
+                        span.overview-box__url= test.urls.toLowerCase()
+                    +overviewBox('Reports',`${test.numReports} report`, 'user')
+                    - if(test.type === 'imagediff')
+                        +overviewBox('Image Diff Percentage',`${test.averageCompatibility} %`, 'star')
+                    - if(test.type === 'speedtest')
+                        +overviewBox('Speed Performance Score',`${test.avgPageSpeedScore} %`, 'star')
+
+                    h2.heading-secondary.ma-bt-lg Test Again!
+                    - if (test.type === 'imagediff')
+                        form.form.form--trigger
+                            .form__group
+                                select.form__input(name='assettype', id='assettype')
+                                    each val in ['SourceAsset' , 'TargetAsset', 'DiffImage']
+                                        option.form__label=val                            
+                            .form__group                            
+                                button.btn.btn--green.btn--trigger(data-testId=`${test.slug}`) Test Now
+                    - if (test.type === 'htmldiff')
+                        form.form.form--trigger
+                            .form__group
+                                select.form__input(name='assettype', id='assettype')
+                                    each val in ['SourceHtml', 'TargetHtml', 'DiffHtml']
+                                        option.form__label=val                            
+                            .form__group                            
+                                button.btn.btn--green.btn--trigger(data-testId=`${test.slug}`) Test Now
+                    - if (test.type === 'speedtest')
+                        form.form.form--trigger                        
+                            .form__group                           
+                                button.btn.btn--green.btn--trigger(data-testId=`${test.slug}` data-assettype=`SpeedTest`) Test Now
+                .overview-box__group
+                    h2.heading-secondary.ma-bt-lg Your test author
+                    .overview-box__detail
+                        svg.overview-box__icon
+                            use(xlink:href='/img/icons.svg#icon-user')
+                        span.overview-box__label Tester Name
+                        - const authorName = test.author ? test.author.name : 'Administrator';
+                        span.overview-box__text= authorName
+
+        .description-box
+            h2.heading-secondary.ma-bt-lg= `About ${test.tenant} ${test.type} test`            
+            p.description__text= `This is a ${test.type} test, for the device ${test.device} last executed At ${testDates.toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'})}, for the page URL: ${test.urls}.`
+            p.description__text= `The ${test.type} test taking average of ${test.averageDuration} ms to run the test successfully.`
+            - if(test.type === 'imagediff')
+                p.description__text=`And the average pixel difference for the test is ${test.avgPixelDifference} pixels.`
+            - if (test.type === 'speedtest')
+                p.description__text=`And the average speed performance score for the test is ${test.avgPageSpeedScore}.`
+
+
+
+    section.section-reviews        
+        h2.heading-primary.ma-bt-lg Your report assets
+
+        .container.approve__reject--form
+            .row.d-flex.justify-content-center
+                - if (test.hasTestComplete)
+                    h4.col-md-12.display-4.ma-bt-lg.d-flex.justify-content-center Approve / Reject Test!     
+                    .row
+                        form.form.form--approve
+                            .form__group                          
+                            .form__group
+                                - if (test.isApproved === 'Accepted')
+                                    button.btn.btn--green.btn--approve.blue-background(data-testId=`${test.slug}`) Accepted                            
+                                    span.overview-box__gutter
+                                    button.btn.btn--red.btn--reject(data-testId=`${test.slug}`) Reject
+                                - if (test.isApproved === 'Rejected')
+                                    button.btn.btn--green.btn--approve.blue-background(data-testId=`${test.slug}`) Accept
+                                    span.overview-box__gutter
+                                    button.btn.btn--red.btn--reject(data-testId=`${test.slug}`) Rejected
+                                - if (!test.isApproved)
+                                    button.btn.btn--green.btn--approve.blue-background(data-testId=`${test.slug}`) Accept
+                                    span.overview-box__gutter
+                                    button.btn.btn--red.btn--reject(data-testId=`${test.slug}`) Reject
+        .reviews 
+            - if (test.type === 'imagediff' && test.reports.length > 0)           
+                each img in test.reports[test.reports.length - 1].s3AssetLocation
+                    .reviews__card(class=`${test.device}`)
+                        .reviews__avatar
+                            img.reviews-box__img(src=`${img}`, alt=`report image`)
+
+            - else if (test.type === 'htmldiff' && test.reports.length > 0)
+                each asset in test.reports[test.reports.length - 1].assets
+                    - if (asset.type === 'DiffHtml')                
+                        .reviews__card.iframe-card
+                            .reviews__avatar                    
+                                .form__group
+                                    label.form__label(for='htmldiffcontainer') Page text diff
+                                    div#htmldiffcontainer(contenteditable="false") !{asset.asset.data}
+                            a.btn.btn--green.btn--small(target='_blank' ,href=`${asset.s3LocationUrl}`) See Details
+            - else if (test.type === 'speedtest' && test.reports.length > 0)
+                - const latestReport = test.reports[test.reports.length - 1];
+                - const speedTestReport = JSON.parse(latestReport.speedTestReport)
+                - if (latestReport.type === 'speedtest')                       
+                    +ltReportCard(latestReport, speedTestReport)     
+
+
+    section.section-cta
+        .cta
+            .cta__img.cta__img--logo
+                img(src='/img/logo-white.png', alt='JouleVT logo')
+            .cta__content
+                h2.heading-secondary Register another test for you website!
+                p.cta__text= `${test.avgPixelDifference} pixels avg. difference. ${test.numReports} reports. Enroll for another test!`
+
+                if user
+                    a.btn.btn--green.span-all-rows(href="/enroll") Enroll test!
+                else
+                    a.btn.btn--green.span-all-rows(href="/login") Login to enroll test

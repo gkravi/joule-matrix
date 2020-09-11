@@ -1,0 +1,69 @@
+extends base
+
+block content
+    main.main
+        .website-report.container-xl
+            h3.heading-secondary= name
+            .row.tenant-report
+                .col-md-6.tenant-report__aggregate
+                    .row.tenant-report__aggregate--item
+
+                    .row.tenant-report__aggregate--item
+                        each tenant in tenants
+                            - if (tenant.environment === 'qa')
+                                .col-md-4.tenant-report__aggregate--item-score
+                                    .single-chart
+                                        svg.circular-chart(class=`${calculateCompatibity(tenant.avgCompatibility)}` viewbox='0 0 36 36')
+                                            path.circle-bg(d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            path.circle(stroke-dasharray=`${tenant.avgCompatibility}, 100` d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            text.percentage(x='18' y='20.35')= `${tenant.avgCompatibility} %`
+                                   
+                                        .tenant-report__aggregate--item-score__text.lead= calculateCompatibity(tenant.avgCompatibility)
+                                .col-md-8.tenant-report__aggregate--item-env
+                                    a(class="btn btn-outline-success btn-vt--small" href=`/enrolls/${name}/${tenant.slug}`) QA
+                    .row.tenant-report__aggregate--item
+                        each tenant in tenants
+                            - if (tenant.environment === 'stage')
+                                .col-md-4.tenant-report__aggregate--item-score
+                                    .single-chart
+                                        svg.circular-chart(class=`${calculateCompatibity(tenant.avgCompatibility)}` viewbox='0 0 36 36')
+                                            path.circle-bg(d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            path.circle(stroke-dasharray=`${tenant.avgCompatibility}, 100` d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            text.percentage(x='18' y='20.35')= `${tenant.avgCompatibility} %`
+                                        .tenant-report__aggregate--item-score__text.lead= calculateCompatibity(tenant.avgCompatibility)
+                                .col-md-8.tenant-report__aggregate--item-env
+                                    a(class="btn btn-outline-success btn-vt--small" href=`/enrolls/${name}/${tenant.slug}`) STAGE
+                    .row.tenant-report__aggregate--item
+                        each tenant in tenants
+                            - if (tenant.environment === 'prod')
+                                .col-md-4.tenant-report__aggregate--item-score
+                                    .single-chart
+                                        svg.circular-chart(class=`${calculateCompatibity(tenant.avgCompatibility)}` viewbox='0 0 36 36')
+                                            path.circle-bg(d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            path.circle(stroke-dasharray=`${tenant.avgCompatibility}, 100` d='M18 2.0845\
+                                            a 15.9155 15.9155 0 0 1 0 31.831\
+                                            a 15.9155 15.9155 0 0 1 0 -31.831')
+                                            text.percentage(x='18' y='20.35')= `${tenant.avgCompatibility} %`
+                                        .tenant-report__aggregate--item-score__text.lead= calculateCompatibity(tenant.avgCompatibility)
+                                .col-md-8.tenant-report__aggregate--item-env
+                                    a(class="btn btn-outline-success btn-vt--small" href=`/enrolls/${name}/${tenant.slug}`) PROD
+                .col-md-6
+                    .image-layout-card
+                        a(href=`/tenant/${name}`, rel="noopener")
+                            img.desktop__img(src='/img/tenant-screens.png', alt=`${name}`, title=`${name}`)
+                        a(href=`/tenant/${name}`, rel="noopener")
+                            img.mobile__img(src='/img/tenant-screen-mobile.png', alt=`${name}`, title=`${name}`)
+                    .row.image-layout__footer--text
+                        .col-md-12
+                            h3= `${numTests} pages tested`
+                            p.lead This appears to be every page in this site

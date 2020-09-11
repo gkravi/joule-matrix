@@ -1,0 +1,43 @@
+extends base
+
+block content
+    main.main
+        h1.heading-primary.full-width.green-background My Tests
+        .card-container 
+            each test in tests           
+                .card
+                    .card__header
+                       h3.heading-tertirary
+                            span= test.tenant
+                            | 
+                            span= test.language
+                    .card__details
+                        h4.card__sub-heading= test.type
+                        p.card__text= test.device.toUpperCase()                      
+                        svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-trending-up')
+                        span.card__text= test.urls
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-calendar')
+                            - const testDates = test.modifieddAt ? test.modifieddAt.toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'}) : '';
+                            span= testDates                        
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-user')
+                            - const authorName = test.author ? test.author.name : 'admin';
+                            span= authorName                       
+                            
+
+                    .card__footer                        
+                        p
+                            - const status = test.hasTestComplete ? 'Completed' : 'Pending'
+                            span.card__footer-value= status
+                            |  
+                        p.card__ratings
+                            - if (test.type === 'imagediff')
+                                span.card__footer-value= `${test.averageCompatibility} %`
+                                |  
+                            span.card__footer-text= ` Reports (${test.numReports})`
+                        a.btn.btn--green.btn--small(href=`/test/${test.slug}`) Details
+        

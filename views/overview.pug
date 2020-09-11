@@ -1,0 +1,69 @@
+extends base
+
+block content
+    main.main       
+        h1.heading-primary.full-width.purple-background.heading-page Overview
+        nav.nav.navbar.navbar-expand-lg.navbar-light.bg-light.overview-nav.container
+            .col-md-6
+                button(type='button', class='btn btn-outline-info btn-vt--small')
+                    span.badge.badge-light= `${total_results}`
+                    |
+                    span.margin-left-10 Websites
+            .col-md-6
+                .row
+                    .col-md-6                        
+                        a(class="btn btn-outline-info btn-vt--small" href="/enroll")
+                            svg(id="i-import" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2")
+                                path(d="M28 22 L28 30 4 30 4 22 M16 4 L16 24 M8 16 L16 24 24 16")
+                            |
+                            span.margin-left-10 Add New Site
+                    .col-md-6
+                        input(class="form__input" type="text" placeholder="Search" aria-label="Search")
+
+        .website-report.container-xl
+            h3.heading-secondary Image Difference Report
+            .row.enroll-result.report--heading
+                .col-md-3
+                    h3.heading-secondary.heading-report-result Name
+                .col-md-3
+                    h3.heading-secondary.heading-report-result QA
+                .col-md-3
+                    h3.heading-secondary.heading-report-result STAGE
+                .col-md-3
+                    h3.heading-secondary.heading-report-result PROD
+            each enroll in enrolls
+                .row.enroll-result               
+                    .col-md-3.enroll-result--tenant
+                        a(class="heading-secondary" href=`/tenant/${enroll._id.toLowerCase()}`)= enroll._id                 
+                    
+                    .col-md-3.enroll-result--env
+                        each website in enroll.enrolls
+                            - if(website.environment === 'qa')   
+                                - const qaCompatibility = calculateCompatibity(website.avgCompatibility);  
+                                a.heading-secondary(class=`${qaCompatibility}`, href=`/enrolls/${enroll._id.toLowerCase()}/${website.slug}`, title=`${website.avgCompatibility} %`)
+                    .col-md-3.enroll-result--env
+                        each website in enroll.enrolls
+                            - if(website.environment === 'stage')                                
+                                - const stageCompatibility = calculateCompatibity(website.avgCompatibility);                                                      
+                                a.heading-secondary(class=`${stageCompatibility}`, href=`/enrolls/${enroll._id.toLowerCase()}/${website.slug}`, title=`${website.avgCompatibility} %`)
+                    .col-md-3.enroll-result--env
+                        each website in enroll.enrolls
+                            - if(website.environment === 'prod')
+                                - const prodCompatibility = calculateCompatibity(website.avgCompatibility);  
+                                a.heading-secondary(class=`${prodCompatibility}`, href=`/enrolls/${enroll._id.toLowerCase()}/${website.slug}`, title=`${website.avgCompatibility} %`)
+
+            h3.heading-secondary Speed Test Report
+            each enroll in enrolls
+                .row.enroll-result               
+                    .col-md-3.enroll-result--tenant
+                        a(class="heading-secondary" href=`/tenant/${enroll._id.toLowerCase()}`)= enroll._id
+                    
+                    .col-md-3.enroll-result--env
+
+                    .col-md-3.enroll-result--env
+
+                    .col-md-3.enroll-result--env
+                        each website in enroll.enrolls
+                            - if(website.environment === 'prod')
+                                - const speedTestScore = calculateCompatibity(website.speedTestScore);  
+                                a.heading-secondary(class=`${speedTestScore}`, href=`/enrolls/${enroll._id.toLowerCase()}/${website.slug}`, title=`${website.speedTestScore} %`)

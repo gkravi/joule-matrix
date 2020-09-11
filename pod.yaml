@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elastic-migration
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      pod: web
+  template:
+    metadata:
+      labels:
+        pod: web
+    spec:
+      containers:
+        - name: migration-site
+          image: localhost:5000/elastic-cloud-migration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    pod: web
+  ports:
+    - port: 4444
+      targetPort: 4444
+      nodePort: 30001

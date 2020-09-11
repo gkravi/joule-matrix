@@ -1,0 +1,220 @@
+[
+	{
+		"device": "tablet",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8351951fa9dc2a065b7e9",
+			"5ef8355a51fa9dc2a065b7ea",
+			"5ef8356951fa9dc2a065b7eb"
+		],
+		"testDates": [
+			"2021-06-19T09:00:00.000Z",
+			"2021-07-20T09:00:00.000Z",
+			"2021-08-18T09:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2955",
+		"tenant": "HPS",
+		"language": "en-us",
+		"author": ["5c8a22c62f8fb814b56fa18b", "5c8a1f4e2f8fb814b56fa185"]
+	},
+	{
+		"device": "desktop",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8356951fa9dc2a065b7eb",
+			"5ef750a692572d3584b7d693",
+			"5ef8357a51fa9dc2a065b7ec"
+		],
+		"testDates": [
+			"2021-04-25T09:00:00.000Z",
+			"2021-07-20T09:00:00.000Z",
+			"2021-10-05T09:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2951",
+		"tenant": "HTS",
+		"language": "en-us",
+		"author": [
+			"5c8a21d02f8fb814b56fa189",
+			"5c8a201e2f8fb814b56fa186",
+			"5c8a1f292f8fb814b56fa184"
+		]
+	},
+	{
+		"device": "mobile",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8357a51fa9dc2a065b7ec",
+			"5ef8356951fa9dc2a065b7eb",
+			"5ef8823d0120dcd4c8cd601d"
+		],
+		"testDates": [
+			"2022-01-05T10:00:00.000Z",
+			"2022-02-12T10:00:00.000Z",
+			"2023-01-06T10:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c295a",
+		"tenant": "HOS",
+		"language": "en-zh",
+		"author": [
+			"5c8a21d02f8fb814b56fa189",
+			"5c8a23412f8fb814b56fa18c",
+			"5c8a1f4e2f8fb814b56fa185"
+		]
+	},
+	{
+		"device": "desktop",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": true,
+		"images": [
+			"5ef8823d0120dcd4c8cd601d",
+			"5ef8357a51fa9dc2a065b7ec",
+			"5ef8823d0120dcd4c8cd601d"
+		],
+		"testDates": [
+			"2021-08-05T09:00:00.000Z",
+			"2022-03-20T10:00:00.000Z",
+			"2022-08-12T09:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2961",
+		"tenant": "HON",
+		"language": "en-us",
+		"author": [
+			"5c8a21f22f8fb814b56fa18a",
+			"5c8a23412f8fb814b56fa18c",
+			"5c8a201e2f8fb814b56fa186"
+		]
+	},
+	{
+		"device": "tablet",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8823d0120dcd4c8cd601d",
+			"5ef8357a51fa9dc2a065b7ec",
+			"5ef8356951fa9dc2a065b7eb"
+		],
+		"testDates": [
+			"2021-03-11T10:00:00.000Z",
+			"2021-05-02T09:00:00.000Z",
+			"2021-06-09T09:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c295d",
+		"tenant": "AIDC",
+		"language": "en",
+		"author": ["5c8a22c62f8fb814b56fa18b", "5c8a201e2f8fb814b56fa186"]
+	},
+	{
+		"device": "mobile",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": true,
+		"images": [
+			"5ef8356951fa9dc2a065b7eb",
+			"5ef8355a51fa9dc2a065b7ea",
+			"5ef8351951fa9dc2a065b7e9"
+		],
+		"testDates": [
+			"2021-07-19T09:00:00.000Z",
+			"2021-09-06T09:00:00.000Z",
+			"2022-03-18T10:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2966",
+		"tenant": "HIS",
+		"language": "en-us",
+		"author": [
+			"5c8a21f22f8fb814b56fa18a",
+			"5c8a1f292f8fb814b56fa184",
+			"5c8a1f4e2f8fb814b56fa185"
+		]
+	},
+	{
+		"device": "tablet",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8351951fa9dc2a065b7e9",
+			"5ef8355a51fa9dc2a065b7ea",
+			"5ef8356951fa9dc2a065b7eb"
+		],
+		"testDates": [
+			"2021-03-23T10:00:00.000Z",
+			"2021-10-25T09:00:00.000Z",
+			"2022-01-30T10:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2970",
+		"tenant": "Tridium",
+		"language": "en-us",
+		"author": ["5c8a21d02f8fb814b56fa189", "5c8a1f292f8fb814b56fa184"]
+	},
+	{
+		"device": "desktop",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": true,
+		"images": [
+			"5ef8356951fa9dc2a065b7eb",
+			"5ef8357a51fa9dc2a065b7ec",
+			"5ef8823d0120dcd4c8cd601d"
+		],
+		"testDates": [
+			"2021-12-16T10:00:00.000Z",
+			"2022-01-16T10:00:00.000Z",
+			"2022-12-12T10:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c2974",
+		"tenant": "Aero",
+		"language": "en-us",
+		"author": [
+			"5c8a21f22f8fb814b56fa18a",
+			"5c8a201e2f8fb814b56fa186",
+			"5c8a23412f8fb814b56fa18c"
+		]
+	},
+	{
+		"device": "tablet",
+		"urls": [
+			"http://honeywell.com/en-us/press",
+			"http://honeywell.com/en-us/news"
+		],
+		"hasTestComplete": false,
+		"images": [
+			"5ef8823d0120dcd4c8cd601d",
+			"5ef8357a51fa9dc2a065b7ec",
+			"5ef8355a51fa9dc2a065b7ea"
+		],
+		"testDates": [
+			"2021-02-12T10:00:00.000Z",
+			"2021-04-14T09:00:00.000Z",
+			"2021-09-01T09:00:00.000Z"
+		],
+		"_id": "5c88fa8cf4afda39709c296c",
+		"tenant": "BendiKing",
+		"language": "en-us",
+		"author": ["5c8a22c62f8fb814b56fa18b", "5c8a23412f8fb814b56fa18c"]
+	}
+]

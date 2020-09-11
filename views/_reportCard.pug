@@ -1,0 +1,13 @@
+mixin reportCard(report)
+    .reviews__card
+        .reviews__avatar
+            h6.reviews__user= `${report.type} test`
+        p.reviews__text= `${report.status} test`
+        p.reviews__text= `Date: ${report.modifieddAt.toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'})}`
+        p.reviews__text= `Duration: ${report.duration} ms`
+        if (report.type === 'imagediff')
+            p.reviews__text= `Pixel Difference ${report.pixelDifference} pixels`
+            p.reviews__text= `Compatibility ${report.compatibility} %`
+        //- each img in report.s3AssetLocation
+        //-     img.reviews-box__img(src=`${img}`, alt=`${test.type}`)
+        a.btn.btn--green.btn--small(href=`/test/${test.slug}/${report.slug}/report`) Details

@@ -1,0 +1,22 @@
+extends base
+
+block content
+    main.main
+        .enroll-form
+            h2.heading-secondary.ma-bt-lg Enroll new Test
+            form.form.form--enroll
+                .form__group
+                    label.form__label(for='tenant') Tenant Name
+                    input#tenant.form__input(type='text', placeholder='Honeywell', required, name='tenant')
+                .form__group
+                    label.form__label(for='language') Tenant Language
+                    input#language.form__input(type='text', placeholder='en-us', required, name='language')              
+                .form__group
+                    label.form__label(for='urls') Page URLs
+                    textarea#urls.form__input(rows="5", cols="100", placeholder='URL(s): https://example.com Add line break after each url',  required, name='urls')
+                .form__group
+                    label.form__label(for='emails') Email address
+                    input#emails.form__input(type='email', placeholder='you@example.com,sophie@example.com', required, multiple, name='emails')
+               
+                .form__group
+                    button.btn.btn--green Enroll Now
