@@ -73,7 +73,7 @@ router
 	.route('/:testId/trigger')
 	.post(
 		authController.protect,
-		testController.consumeQueue
+		testController.publishTask
 	);
 router
 	.route('/:tenantId/triggerAll')

@@ -297,6 +297,8 @@ exports.userAgentHandler = (req, res, next) => {
 
 exports.ssoCallback = (req, res, next) => {
 	const xmlResponse = req.body.SAMLResponse;
+	console.log("ssocallback")
+	console.log(xmlResponse);
 	const parser = new Saml2js(xmlResponse);
 	req.samlUserObject = parser.toObject();
 	next();

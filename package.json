@@ -5,7 +5,7 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "node server.js | pino-pretty",
-		"dev": "nodemon server.js | pino-pretty > joulvt-dev.log 2> error-dev.log",
+		"dev": "nodemon server.js",
 		"start:prod": "NODE_ENV=production nodemon --max-old-space-size=2048 server.js | pino-pretty",
 		"test-snapshots": "jest",
 		"test-snapshots-update": "jest --config=jest.config.js --updateSnapshot --detectOpenHandles -- forceExit",
@@ -44,8 +44,6 @@
 		"helmet": "^3.23.2",
 		"hpp": "^0.2.3",
 		"html-to-text": "^5.1.1",
-		"jest": "^26.0.1",
-		"jest-cli": "^26.0.1",
 		"jquery": "^3.5.1",
 		"jsonwebtoken": "^8.5.1",
 		"mocha": "^7.2.0",
@@ -55,16 +53,15 @@
 		"multer-s3": "^2.9.0",
 		"nodemailer": "^6.4.10",
 		"passport": "^0.4.1",
-		"passport-saml": "^1.3.4",
+		"passport-saml": "^2.0.2",
 		"pino": "^6.5.1",
 		"pino-http": "^5.2.0",
 		"pixelmatch": "^5.2.0",
 		"pug": "^3.0.0",
 		"puppeteer": "^3.3.0",
-		"pusher": "^3.0.1",
 		"saml2js": "^0.1.2",
 		"sanitize-html": "^1.27.0",
-		"sharp": "^0.25.4",
+		"sharp": "^0.26.3",
 		"slugify": "^1.4.0",
 		"stripe": "^8.60.0",
 		"swagger-jsdoc": "^4.0.0",
@@ -75,8 +72,6 @@
 		"xss-clean": "^0.1.1"
 	},
 	"devDependencies": {
-		"@types/jest": "^25.2.3",
-		"@types/jest-cli": "^24.3.0",
 		"eslint": "^7.2.0",
 		"eslint-config-airbnb": "^18.1.0",
 		"eslint-config-prettier": "^6.11.0",
@@ -84,12 +79,11 @@
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^3.1.3",
 		"eslint-plugin-react": "^7.20.0",
-		"jest-image-snapshot": "^4.0.2",
 		"ndb": "^1.1.5",
 		"nodemon": "^2.0.4",
-		"parcel-bundler": "^1.12.4",
+		"parcel-bundler": "^1.3.1",
 		"pino-pretty": "^4.1.0",
-		"prettier": "^2.0.5"
+		"prettier": "^2.2.1"
 	},
 	"engines": {
 		"node": ">=10.0.0"

@@ -2,6 +2,7 @@ const amqp = require('amqplib/callback_api');
 const dotenv = require('dotenv');
 const pino = require('pino');
 const testUtils = require('../utils/testUtils');
+const Test = require('../models/testModel');
 //It adds value in config.env file to the environment variables
 dotenv.config({ path: './config.env' });
 
@@ -17,13 +18,14 @@ let ch = null;
 
 var amqpConn = null;
 const start = () => {
+	console.log("Queue started");
 	amqp.connect(process.env.AMQP_CONN_URL + '?heartbeat=60', function (
 		err,
 		conn
 	) {
 		conn.createChannel(function (err, ch) {
 			logger.info(`Connection Successfull for channel`);
-			ch.assertQueue('jobs', { durable: true });
+			ch.assertQueue(queueName, { durable: true });
 			if (err) {
 				console.error('[AMQP]', err.message);
 				return setTimeout(start, 1000);
@@ -129,13 +131,15 @@ const startWorker = () => {
 			console.log('[AMQP] channel closed');
 		});
 		ch.prefetch(10);
-		ch.assertQueue('jobs', { durable: true }, function (err, _ok) {
+		
+		ch.assertQueue(queueName, { durable: true }, function (err, _ok) {
 			if (closeOnErr(err)) return;
-			ch.consume('jobs', processMsg, { noAck: false });
+			ch.consume(queueName, processMsg, { noAck: false });
 			console.log('Worker is started');
 		});
 
 		function processMsg(msg) {
+			console.log("in startWorker" + JSON.stringify(msg));
 			work(msg, function (ok) {
 				try {
 					if (ok) ch.ack(msg);
@@ -149,10 +153,29 @@ const startWorker = () => {
 };
 
 const work = async (msg, cb) => {
-	// console.log('Got msg', msg.content.toString());
-	const { test, data, type } = JSON.parse(msg.content.toString());
-	console.log('Executing ' + data.type);
-	console.log(`test: ${test.slug}`);
+	
+	const { data, slug } = JSON.parse(msg.content.toString());
+	// 1) Get Test by slug
+	console.log('Got msg', data);
+	console.log('Got slug', slug);
+	let test;
+	if(data && slug) {		
+		test = await Test.findOne({ slug });
+		console.log(test.slug)
+		if (!test) {
+			logger.warn('No test found with that testId');
+			return;
+		}
+	}
+	
+	// 2) Trigger Test screenshot, imagediff, htmldiff, webscraping.
+	// const url = `${req.protocol}://${req.get('host')}/test/${test.slug}`;
+	// const author = req.user.id;
+	
+	logger.info(`Executing test of type ${data.type}`);
+
+	// console.log('Executing ' + data.type);
+	// console.log(`test: ${slug}`);
 	if (data.type === 'screenshot') {
 		await testUtils.triggerScreenshot(data, test);
 	} else if (data.type === 'imagediff') {
@@ -184,8 +207,11 @@ start();
 
 exports.publishToQueue = async (req, res, next) => {
 	console.log('publishToQueue');
-	const data = req.body;
-	publish('', 'jobs', new Buffer(JSON.stringify(data)));
+	const data = { data: req.body, slug: req.params.testId	};
+    publish('', queueName, new Buffer(JSON.stringify(data)));
+	// if(ch){
+	// 	console.log("Channel is initialized");
+	// }
 	// ch.assertQueue(queueName);
 	// console.log('sendToQueue...');
 	// ch.sendToQueue(queueName, Buffer.from(JSON.stringify(data)), {

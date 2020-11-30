@@ -28,9 +28,16 @@ exports.doScreenCapture = async (url, site_name, device) => {
 	const d = new Date();
 	const current_time = `${d.getFullYear()}_${d.getMonth() + 1}
 	  _${d.getDate()}_${d.getHours()}_${d.getMinutes()}`;
-
+	  console.log("browser")
+	  try {
+		const browser = await puppeteer.launch();
+	  } catch (error) {
+		  console.error(error)
+	  }
 	const browser = await puppeteer.launch();
+	
 	const page = await browser.newPage();
+	
 	// Configure the navigation timeout
 	await page.setDefaultNavigationTimeout(0);
 	if (device === 'mobile') {
@@ -244,24 +251,26 @@ exports.createImageAndReportThenUpdateTest = async (reqData, data) => {
 		logger.error(`Error while updating Test: Error 🔥🔥 ${err}`);
 		throw err;
 	}
-	let Pusher = require('pusher');
-	let pusher = new Pusher({
-		appId: process.env.PUSHER_APP_ID,
-		key: process.env.PUSHER_APP_KEY,
-		secret: process.env.PUSHER_APP_SECRET,
-		cluster: process.env.PUSHER_APP_CLUSTER,
-	});
+	// let Pusher = require('pusher');
+	// let pusher = new Pusher({
+	// 	appId: process.env.PUSHER_APP_ID,
+	// 	key: process.env.PUSHER_APP_KEY,
+	// 	secret: process.env.PUSHER_APP_SECRET,
+	// 	cluster: process.env.PUSHER_APP_CLUSTER,
+	// });
 
-	pusher.trigger('my-channel', 'my-event', {
-		message: 'hello world',
-	});
+	// pusher.trigger('my-channel', 'my-event', {
+	// 	message: 'hello world',
+	// });
 	return testDoc;
 };
 
 exports.triggerScreenshot = async (reqData, test) => {
-	console.log(reqData);
+	
 	const { urls, tenant, device, language, slug } = test;
+	console.log(`urls: ${urls}, tenant: ${tenant}, device: ${device}, language: ${language}`)
 	const testResult = await this.doScreenCapture(urls, tenant, device);
+	
 	const testDoc = await awsImageUploadService.saveToS3AndUpdateDB({
 		test,
 		reqData,

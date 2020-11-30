@@ -407,6 +407,15 @@ exports.approveAllTest = catchAsync(async (req, res, next) => {
 	});
 });
 
+exports.publishTask = catchAsync(async (req, res, next) => {
+	MQService.publishToQueue(req, res, next);
+	res.status(200).json({
+		status: 'success',
+		data: {
+			data: `Tests Queued!`,
+		},
+	});
+});
 exports.triggerTestByTenant = catchAsync(async (req, res, next) => {
 	// Get all test per tenant
 	const tests = await Test.find({ tenant: req.params.tenantId });
